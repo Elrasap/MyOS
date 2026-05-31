@@ -2,6 +2,7 @@
 #![no_main]
 
 mod vga;
+mod serial;
 
 use core::panic::PanicInfo;
 
@@ -23,15 +24,14 @@ pub struct E820Entry {
 
 #[panic_handler]
 fn panic(_info: &PanicInfo) -> ! {
-    loop {
-        unsafe {
-            core::arch::asm!("hlt");
-        }
-    }
+    halt();
 }
 
 #[no_mangle]
 pub extern "C" fn _start(boot_info: *const BootInfo) -> ! {
+    serial::init();
+    serial::write_string("K");
+
     vga::clear_screen();
     vga::write_string("Rust kernel reached!\n\n");
 
