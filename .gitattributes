@@ -1,0 +1,2 @@
+osdev-offline/ filter=lfs diff=lfs merge=lfs -text
+osdev-offline/** filter=lfs diff=lfs merge=lfs -text
